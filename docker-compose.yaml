@@ -15,8 +15,6 @@ services:
     tty: true
     environment: {}
     network_mode: host
-    volumes:
-      - ./root/etc/frp:/etc/frp:ro
     healthcheck:
       test: ["CMD", "bash", "-c", "echo >/dev/tcp/127.0.0.1/7000 >/dev/null 2>&1"]
       interval: 30s
@@ -45,8 +43,6 @@ services:
     command: ["frpc", "-c", "/etc/frp/frpc.toml"]
     environment: {}
     network_mode: host
-    volumes:
-      - ./root/etc/frp:/etc/frp:ro
     depends_on:
       frps:
         condition: service_healthy
