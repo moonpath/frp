@@ -42,7 +42,6 @@ EOF
 EXPOSE 7000/tcp
 EXPOSE 7000/udp
 
-VOLUME /etc/frp
 WORKDIR /etc/frp
 
 ENTRYPOINT ["docker-entrypoint"]
