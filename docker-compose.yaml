@@ -1,0 +1,56 @@
+services:
+  frps:
+    image: moonpath/frp:ubuntu-24.04
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "ubuntu:24.04"
+        VERSION: 0.65.0
+        TARGETARCH: amd64
+    container_name: frps
+    hostname: frps
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    environment: {}
+    network_mode: host
+    volumes:
+      - ./root/etc/frp:/etc/frp:ro
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo >/dev/tcp/127.0.0.1/7000 >/dev/null 2>&1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1s
+    deploy:
+      resources:
+        limits:
+          memory: 300m
+
+  frpc:
+    image: moonpath/frp:ubuntu-24.04
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: "ubuntu:24.04"
+        VERSION: 0.65.0
+        TARGETARCH: amd64
+    container_name: frpc
+    hostname: frpc
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    command: ["frpc", "-c", "/etc/frp/frpc.toml"]
+    environment: {}
+    network_mode: host
+    volumes:
+      - ./root/etc/frp:/etc/frp:ro
+    depends_on:
+      frps:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 300m
