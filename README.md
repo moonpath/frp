@@ -17,13 +17,13 @@ A secure, production-ready FRP deployment with **mandatory TLS encryption** and 
 ```bash
 export SERVER_DOMAIN="your-server.com"
 bash genssl
-mkdir -p root/etc/frp/ssl
-mv *.crt *.key root/etc/frp/ssl/
+mkdir -p /etc/frp/ssl
+mv *.crt *.key /etc/frp/ssl/
 ```
 
 ### 2. Configure
 
-**Server** (`root/etc/frp/frps.toml`):
+**Server** (`/etc/frp/frps.toml`):
 
 ```toml
 bindPort = 7000
@@ -39,7 +39,7 @@ certFile = "/etc/frp/ssl/server.crt"
 keyFile = "/etc/frp/ssl/server.key"
 ```
 
-**Client** (`root/etc/frp/frpc.toml`):
+**Client** (`/etc/frp/frpc.toml`):
 
 ```toml
 serverAddr = "your-server-ip"
