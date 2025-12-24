@@ -39,7 +39,7 @@ esac
 EOF
 
 HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 \
-  CMD pgrep "frps|frpc" >/dev/null
+    CMD pgrep "frps|frpc" >/dev/null
 
 EXPOSE 7000/tcp 7000/udp
 

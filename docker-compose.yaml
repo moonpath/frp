@@ -8,6 +8,9 @@ services:
         BASE_IMAGE: "alpine:latest"
         VERSION: 0.65.0
         TARGETARCH: amd64
+      tags:
+        - "moonpath/frp:latest"
+        - "moonpath/frp:alpine-latest"
     container_name: frps
     hostname: frps
     restart: unless-stopped
